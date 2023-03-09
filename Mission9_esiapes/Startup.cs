@@ -34,6 +34,12 @@ namespace Mission9_esiapes
                });
 
             services.AddScoped<IBookstoreRepository, EFBooksoreRepository>();
+
+            services.AddRazorPages();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +52,7 @@ namespace Mission9_esiapes
 
             // To wwwroot
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -66,6 +72,8 @@ namespace Mission9_esiapes
                     new { Controller = "Home", action = "Index", pageNum = 1 });
 
                 endpoints.MapDefaultControllerRoute();// sets ups the infrastructure of a normal MVC App
+
+                endpoints.MapRazorPages();
             });
         }
     }
